@@ -1,46 +1,15 @@
 #include QMK_KEYBOARD_H
 
+enum layer_names { _QWERTY, _COLEMAK, _LOWER, _RAISE, _MOUSE, _FUN, _ADJUST };
+
+enum custom_keycodes { QWERTY = SAFE_RANGE, COLEMAK, LOWER, RAISE, MOUSE, FUN, ADJUST };
+
 extern keymap_config_t keymap_config;
-
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
-#define _QWERTY 0
-#define _COLEMAK 1
-#define _LOWER 2
-#define _RAISE 3
-#define _MOUSE 4
-#define _FUN 5
-#define _ADJUST 16
-
-enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  COLEMAK,
-  LOWER,
-  RAISE,
-  MOUSE,
-  FUN,
-  ADJUST,
-};
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
-#define TAPPING_TERM 200
-
-
-//Tap Dance Declarations
-enum {
-      TD_ESC_CAPS = 0
-};
-
-#define MOUSEKEY_INTERVAL 16
-#define MOUSEKEY_DELAY 0
-#define MOUSEKEY_TIME_TO_MAX 60
-#define MOUSEKEY_MAX_SPEED 7
-#define MOUSEKEY_WHEEL_DELAY 0
 
 /* LGUI_T(KC_A),    LALT_T(KC_S),    LCTL_T(KC_D),    LSFT_T(KC_F),    KC_G,    KC_H,    RSFT_T(KC_J),    RCTL_T(KC_K),    RALT_T(KC_L),    RGUI_T(KC_SCLN), \ */
 
@@ -196,17 +165,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 
-uint32_t layer_state_set_user(uint32_t state) {
-  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-}
-
-//Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-                                             //Tap once for Esc, twice for Caps Lock
-                                             [TD_ESC_CAPS]  = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS)
-                                             // Other declarations would go here, separated by commas, if you have them
-};
-
+layer_state_t layer_state_set_user(layer_state_t state) { return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST); };
 
 void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
