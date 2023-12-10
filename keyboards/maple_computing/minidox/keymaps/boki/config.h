@@ -39,4 +39,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #undef PERMISSIVE_HOLD
 
+/* https://github.com/qmk/qmk_firmware/issues/17316 */
+#define USB_SUSPEND_WAKEUP_DELAY 200
+#define NO_USB_STARTUP_CHECK
+
+
 #endif
